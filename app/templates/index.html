@@ -1,0 +1,17 @@
+<h1>Itens</h1>
+{% for item in produto %}
+
+<u>Nome:{{ item.nome }}</u>
+<u>Preco: R${{ item.preco }}</u>
+<u>Quantidade: {{ item.quantidade }}</u>
+<br>
+<br>
+{% endfor %}
+
+<h1>Criar Produto</h1>
+
+<form method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Salvar</button>
+
