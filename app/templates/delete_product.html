@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmar Exclusão</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
     <h1>Confirmar Exclusão</h1>
     <p>Tem certeza que deseja excluir o produto "{{ produto.nome }}"?</p>
     <form method="post">
-       {% csrf_token %}
-       <button type="submit">Sim, excluir</button>
-       <a href="{% url 'select_product' %}">Não, cancelar</a>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sim, excluir</button>
+        <a href="{% url 'select_product' %}" class="btn btn-secondary">Não, cancelar</a>
     </form>
-</body>
-</html>
+</div>
+{% endblock %}

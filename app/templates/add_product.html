@@ -1,9 +1,15 @@
-<a href="{% url 'index' %}">Voltar</a>
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <a href="{% url 'index' %}" class="btn btn-secondary mb-3">Voltar</a>
 
-<h1>Adicione o nome de um novo produto</h1>
-<br>
+    <h1>Adicione o nome de um novo produto</h1>
+    <br>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form_name.as_p }}
-<button type="submit">Adicione</button>
+    <form method="post">
+        {% csrf_token %}
+        {{ form_name.as_p }}
+        <button type="submit" class="btn btn-primary">Adicione</button>
+    </form>
+</div>
+{% endblock %}

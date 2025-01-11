@@ -1,49 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <a href="{% url 'add_product' %}" class="btn btn-primary">Adicionar novo produto</a>
+    <br>
+    <a href="{% url 'add_mark' %}" class="btn btn-primary mt-2">Adicionar marca</a>
+    <br>
+    <a href="{% url 'select_product' %}" class="btn btn-primary mt-2">Ver/alterar produtos existentes</a>
 
-<a href="{% url 'add_product' %}">Adicionar novo produto</a>
-<br>
-<a href="{% url 'add_mark' %}">Adicionar marca</a>
-<br>
-<a href="{% url 'select_product' %}">Ver/alterar produtos existentes</a>
+    <br>
+    <br>
 
-<br>
-<br>
+    <h1>Adicionar dados ao Produto</h1>
 
-<h1>Adicionar dados ao Produto</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
 
-<form method="post">
-{% csrf_token %}
-{{ form.as_p }}
-<button type="submit">Salvar</button>
+    <br>
+    <br>
 
-<br>
-<br>
-
-
-{% comment %}
-<h1>Itens Existentes</h1>
-
-{% if produto %}
-    {% for item in produto %}
-        
-        <u>Nome:{{ item.nome }}</u>
-        <br>
-        <u>Marca: R${{ item.marca }}</u>
-        <br>
-        <u>Preco: R${{ item.preco }}</u>
-        <br>
-        <u>Quantidade: {{ item.quantidade }}</u>
-        <br>
-        {% if  item.validade %}
-            <u>Data de vencimento: {{ item.validade|date:'d/m/Y' }}</u>
-            {% else %}
-            <u>Data de vencimento: {{ "Indeterminado" }}</u>
-        {% endif %}
-            <br>
-            <br>
-        
-    {% endfor %}
-{% else %}
-    <p>Sem produtos cadastrados</p>
-    
-{% endif %}
-{% endcomment %}
+</div>
+{% endblock %}

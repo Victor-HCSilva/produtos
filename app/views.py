@@ -61,7 +61,7 @@ def select_product(request):
             produtos_list = produtos_list.filter(Q(nome__nome__icontains=search_term))
 
     # Configuração da paginação
-    paginator = Paginator(produtos_list, 4) # 5 produtos por página
+    paginator = Paginator(produtos_list, 3) # 5 produtos por página
     page = request.GET.get('page')
 
     try:
