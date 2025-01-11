@@ -6,7 +6,7 @@
 <br>
 
 
-<h1>Criar Produto</h1>
+<h1>Adicionar dados ao Produto</h1>
 
 <form method="post">
 {% csrf_token %}
@@ -20,9 +20,13 @@
 
 {% if produto %}
     {% for item in produto %}
+    <br><br>
         <u>Nome:{{ item.nome }}</u>
+        <br>
         <u>Preco: R${{ item.preco }}</u>
+        <br>
         <u>Quantidade: {{ item.quantidade }}</u>
+        <br>
     {% endfor %}
 {% else %}
     <p>Sem produtos cadastrados</p>

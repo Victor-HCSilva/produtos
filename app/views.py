@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Produto
 from  .forms import ProdutoForm
 from .forms import NomeProduto
+from django.db.models import Q
+from .forms import SearchForm  # Importe o novo formulário
 
 def index(request):
     produto = Produto.objects.all()
@@ -26,20 +28,38 @@ def add_product(request):
         "form_name":form_nome,
     }
     return render(request, 'add_product.html', context)
+ 
+def select_product(request):
+    produtos = Produto.objects.all()
+    form = ProdutoForm(request.GET)  
 
+    if form.is_valid():
+        search_term = form.cleaned_data.get('search_term')
+
+        if search_term:
+            produtos = Produto.objects.filter(Q(nome__icontains=search_term)) 
+         
+    context = {
+        "produto": produtos,
+        "form_name": form,
+    }
+     
+    return render(request, 'select_product.html', context)
 
 def select_product(request):
     produtos = Produto.objects.all()
-    form_nome = NomeProduto(request.POST)
+    form = SearchForm(request.GET)
 
-    if form_nome.is_valid():
-        form_nome.save()
-
+    if form.is_valid():
+        search_term = form.cleaned_data.get('search_term')
+        if search_term:
+            produtos = produtos.filter(nome__nome__icontains=search_term)  # Filtrando no campo nome da chave estrangeira
+         
     context = {
-        "produto":produtos,
-        "form_name":form_nome,
+        "produto": produtos,
+        "form_name": form,
     }
-    
+     
     return render(request, 'select_product.html', context)
 
 def update_product(request, id):
@@ -58,3 +78,6 @@ def update_product(request, id):
         'produto': produto,
     }
     return render(request, 'update_product.html', context)
+
+def delete_product(request):
+    return render(request, 'delete_product.html',)

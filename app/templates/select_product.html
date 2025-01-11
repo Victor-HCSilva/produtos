@@ -2,15 +2,23 @@
 
 <h1>Atualize o produto</h1>
 
+<form method="get">  <!-- Use o método GET para formulários de busca -->
+    {{ form_name.as_p }}
+    <button type="submit">Pesquisar</button>
+</form>
+
 {% if produto %}
     {% for item in produto %}
         <a href="{% url 'update_product' id=item.id %}">Alterar</a>
         <br>
-        <u>Nome:{{ item.nome }}</u>
+        <u>Id: {{ item.id }}</u>
+        <br>
+        <u>Nome: {{ item.nome }}</u>
         <br>
         <u>Preco: R${{ item.preco }}</u>
         <br>
         <u>Quantidade: {{ item.quantidade }}</u>
+        <br>
         <br>
     {% endfor %}
 {% else %}

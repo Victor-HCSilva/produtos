@@ -30,3 +30,6 @@ class NomeProduto(forms.ModelForm):
         labels = {
             'nome': 'Nome do Produto',
         }
+
+class SearchForm(forms.Form):
+    search_term = forms.CharField(required=False, label="Pesquisar")
