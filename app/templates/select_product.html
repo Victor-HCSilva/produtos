@@ -1,8 +1,8 @@
 <a href="{% url 'index' %}">Voltar</a>
 
-<h1>Atualize o produto</h1>
+<h1>Produtos</h1>
 
-<form method="get">  <!-- Use o método GET para formulários de busca -->
+<form method="get">
     {{ form_name.as_p }}
     <button type="submit">Pesquisar</button>
 </form>
@@ -11,20 +11,42 @@
     {% for item in produto %}
         <a href="{% url 'update_product' id=item.id %}">Alterar</a>
         <br>
-        <u>Id: {{ item.id }}</u>
+        <a href="{% url 'delete_product' id=item.id %}">Deletar</a>
         <br>
-        <u>Nome: {{ item.nome }}</u>
+        <u>Id:{{ item.id }}</u>
         <br>
-        <u>Marca: R${{ item.marca }}</u>
+        <u>Nome:{{ item.nome }}</u>
         <br>
         <u>Preco: R${{ item.preco }}</u>
         <br>
         <u>Quantidade: {{ item.quantidade }}</u>
         <br>
-        <u>Descrição: {{ item.descricao }}</u>
+        {% if item.validade %}
+            <u>Validade: {{ item.validade|date:"d/m/y" }}</u>
+        {% else %}
+            <u>Validade: {{ "Indeterminado" }}</u>
+        {% endif %}    
         <br>
         <br>
     {% endfor %}
 {% else %}
-    <u>Sem produto</u>
+    <u>Nada encontrado</u>
 {% endif %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if produto.has_previous %}
+            <a href="?page=1">« primeira</a>
+            <a href="?page={{ produto.previous_page_number }}">anterior</a>
+        {% endif %}
+
+        <span class="current">
+            Página {{ produto.number }} de {{ produto.paginator.num_pages }}.
+        </span>
+
+        {% if produto.has_next %}
+            <a href="?page={{ produto.next_page_number }}">próxima</a>
+            <a href="?page={{ produto.paginator.num_pages }}">última »</a>
+        {% endif %}
+    </span>
+</div>

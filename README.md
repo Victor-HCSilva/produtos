@@ -1,3 +1,3 @@
 # Produtos
 
-- Programa para gerenciar produtos genéricos
+- Programa para gerenciar produtos

@@ -17,7 +17,7 @@ class Produto(models.Model):
     marca = models.ForeignKey(Marca, on_delete=models.SET_NULL, blank=True, null=True) 
     descricao = models.TextField()
     preco = models.DecimalField(max_digits=10, decimal_places=2) # Campo para o preço
-    validade = models.DateField(default=None)
+    validade = models.DateField(null=True, blank=True)
     quantidade = models.IntegerField()
 
     def __str__(self):

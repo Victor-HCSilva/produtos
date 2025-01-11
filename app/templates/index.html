@@ -1,7 +1,9 @@
 
-<a href="{% url 'add_product' %}">Adicione um novo produto</a>
+<a href="{% url 'add_product' %}">Adicionar novo produto</a>
+<br>
 <a href="{% url 'add_mark' %}">Adicionar marca</a>
-<a href="{% url 'select_product' %}">Atualizar produto</a>
+<br>
+<a href="{% url 'select_product' %}">Ver/alterar produtos existentes</a>
 
 <br>
 <br>
@@ -16,11 +18,13 @@
 <br>
 <br>
 
+
+{% comment %}
 <h1>Itens Existentes</h1>
 
 {% if produto %}
     {% for item in produto %}
-    <br><br>
+        
         <u>Nome:{{ item.nome }}</u>
         <br>
         <u>Marca: R${{ item.marca }}</u>
@@ -29,8 +33,17 @@
         <br>
         <u>Quantidade: {{ item.quantidade }}</u>
         <br>
+        {% if  item.validade %}
+            <u>Data de vencimento: {{ item.validade|date:'d/m/Y' }}</u>
+            {% else %}
+            <u>Data de vencimento: {{ "Indeterminado" }}</u>
+        {% endif %}
+            <br>
+            <br>
+        
     {% endfor %}
 {% else %}
     <p>Sem produtos cadastrados</p>
     
 {% endif %}
+{% endcomment %}

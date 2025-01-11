@@ -8,10 +8,11 @@ class ProdutoForm(forms.ModelForm):
         widgets = {
             'descricao': forms.Textarea(attrs={'rows': 4}),
             'preco': forms.NumberInput(attrs={'step': '0.01'}),
-            'validade': forms.DateInput(attrs={'type': 'date'}), # Widget para data
-            'quantidade': forms.NumberInput() # Widget para quantidade
+            'validade': forms.DateInput(attrs={'type': 'date'}), 
+            'quantidade': forms.NumberInput() 
         }
         labels = {
+            'nome':'Produto:',
             'descricao': 'Descrição:',
             'preco': 'Preço(R$):',
             'validade': 'Data de Validade:',
