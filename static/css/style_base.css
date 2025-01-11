@@ -1,3 +1,14 @@
 .container{
     max-width: 90% !important;
 }
+label{
+    cursor: pointer;
+    background-color: whitesmoke;
+    border: 1px solid gray;
+    border-radius: 6px ;
+    padding: 2px;
+}
+input, textarea{
+    border-radius: 6px ;
+    background-color: aliceblue;
+}
