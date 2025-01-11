@@ -1,10 +1,10 @@
 
 <a href="{% url 'add_product' %}">Adicione um novo produto</a>
+<a href="{% url 'add_mark' %}">Adicionar marca</a>
 <a href="{% url 'select_product' %}">Atualizar produto</a>
 
 <br>
 <br>
-
 
 <h1>Adicionar dados ao Produto</h1>
 
@@ -22,6 +22,8 @@
     {% for item in produto %}
     <br><br>
         <u>Nome:{{ item.nome }}</u>
+        <br>
+        <u>Marca: R${{ item.marca }}</u>
         <br>
         <u>Preco: R${{ item.preco }}</u>
         <br>

@@ -1,0 +1,9 @@
+<a href="{% url 'index' %}">Voltar</a>
+
+<h1>Adicione uma nova marca</h1>
+<br>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form_marca.as_p }}
+<button type="submit">Adicione</button>

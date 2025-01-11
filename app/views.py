@@ -1,20 +1,28 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Produto
-from  .forms import ProdutoForm
-from .forms import NomeProduto
+from  .forms import ProdutoForm, NomeProduto, MarcaProduto
 from django.db.models import Q
 from .forms import SearchForm  # Importe o novo formulário
 
 def index(request):
     produto = Produto.objects.all()
-    form = ProdutoForm(request.POST)
-
-    if form.is_valid():
-        form.save()
-        
+    if request.method == 'POST':
+        form = ProdutoForm(request.POST)
+        if form.is_valid():
+            # Verificação de unicidade pelo nome do produto
+            nome_do_produto = form.cleaned_data.get('nome')
+            
+            if Produto.objects.filter(nome=nome_do_produto).exists():
+                form.add_error('nome', 'Já existe um produto com este nome.')
+            else:
+                form.save()
+                return redirect('index') # Redirecione depois de salvar
+    else:
+        form = ProdutoForm()
+    
     context = {
-        "produto":produto,
-        'form':form,
+        "form": form,
+        'produto': produto,
     }
 
     return render(request, 'index.html', context)
@@ -28,7 +36,18 @@ def add_product(request):
         "form_name":form_nome,
     }
     return render(request, 'add_product.html', context)
- 
+
+def add_mark(request):
+    form_marca = MarcaProduto(request.POST)
+    if form_marca.is_valid():
+        form_marca.save()
+
+    context = {
+        "form_marca":form_marca,
+    }
+    return render(request, 'add_mark.html', context)
+
+
 def select_product(request):
     produtos = Produto.objects.all()
     form = ProdutoForm(request.GET)  
@@ -69,7 +88,7 @@ def update_product(request, id):
         form = ProdutoForm(request.POST, instance=produto)  # Agora está correto!
         if form.is_valid():
             form.save()
-            return redirect('nome_da_view_detalhe_do_produto', id=id)
+            return redirect('select_product')
     else:
         form = ProdutoForm(instance=produto) # Use o instance para carregar os dados do model no form
 

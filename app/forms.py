@@ -1,11 +1,10 @@
 from django import forms
-from .models import Produto
-from .models import Nome
+from .models import Nome, Marca, Produto
 
 class ProdutoForm(forms.ModelForm):
     class Meta:
         model = Produto
-        fields = ['nome', 'descricao', 'preco', 'validade', 'quantidade']  # Campos que aparecerão no formulário
+        fields = ['nome', 'marca', 'descricao', 'preco','validade', 'quantidade'] 
         widgets = {
             'descricao': forms.Textarea(attrs={'rows': 4}),
             'preco': forms.NumberInput(attrs={'step': '0.01'}),
@@ -13,12 +12,24 @@ class ProdutoForm(forms.ModelForm):
             'quantidade': forms.NumberInput() # Widget para quantidade
         }
         labels = {
-            'nome': 'Nome do Produto',
-            'descricao': 'Descrição do Produto',
-            'preco': 'Preço do Produto (R$)',
-            'validade': 'Data de Validade',
-             'quantidade': 'Quantidade em Estoque'
+            'descricao': 'Descrição:',
+            'preco': 'Preço(R$):',
+            'validade': 'Data de Validade:',
+            'quantidade': 'Quantidade em Estoque:'
         }
+
+class MarcaProduto(forms.ModelForm):
+    class Meta:
+        model = Marca
+        fields = ['marca']
+
+        widgets = {
+            'marca':forms.TextInput(attrs={'type': 'text'}),
+        }
+        labels = {
+            'marca': 'Marca do Produto',
+        }
+
 class NomeProduto(forms.ModelForm):
     class Meta:
         model = Nome
@@ -27,9 +38,7 @@ class NomeProduto(forms.ModelForm):
         widgets = {
             'nome':forms.TextInput(attrs={'type': 'text'}),
         }
-        labels = {
-            'nome': 'Nome do Produto',
-        }
 
 class SearchForm(forms.Form):
     search_term = forms.CharField(required=False, label="Pesquisar")
+
