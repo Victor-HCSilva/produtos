@@ -1,12 +1,10 @@
-<h1>Itens</h1>
-{% for item in produto %}
 
-<u>Nome:{{ item.nome }}</u>
-<u>Preco: R${{ item.preco }}</u>
-<u>Quantidade: {{ item.quantidade }}</u>
+<a href="{% url 'add_product' %}">Adicione um novo produto</a>
+<a href="{% url 'select_product' %}">Atualizar produto</a>
+
 <br>
 <br>
-{% endfor %}
+
 
 <h1>Criar Produto</h1>
 
@@ -15,3 +13,18 @@
 {{ form.as_p }}
 <button type="submit">Salvar</button>
 
+<br>
+<br>
+
+<h1>Itens Existentes</h1>
+
+{% if produto %}
+    {% for item in produto %}
+        <u>Nome:{{ item.nome }}</u>
+        <u>Preco: R${{ item.preco }}</u>
+        <u>Quantidade: {{ item.quantidade }}</u>
+    {% endfor %}
+{% else %}
+    <p>Sem produtos cadastrados</p>
+    
+{% endif %}

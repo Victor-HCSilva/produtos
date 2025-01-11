@@ -1,0 +1,18 @@
+<a href="{% url 'index' %}">Voltar</a>
+
+<h1>Atualize o produto</h1>
+
+{% if produto %}
+    {% for item in produto %}
+        <a href="{% url 'update_product' id=item.id %}">Alterar</a>
+        <br>
+        <u>Nome:{{ item.nome }}</u>
+        <br>
+        <u>Preco: R${{ item.preco }}</u>
+        <br>
+        <u>Quantidade: {{ item.quantidade }}</u>
+        <br>
+    {% endfor %}
+{% else %}
+    <u>Sem produto</u>
+{% endif %}
