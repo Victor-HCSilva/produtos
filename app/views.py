@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Produto, Marca, Nome
 from  .forms import ProdutoForm, NomeProduto, MarcaProduto
 from django.db.models import Q
-from .forms import SearchNameForm, SearchMarkForm, SearchPriceForm  # Importe o novo formulário
+from .forms import SearchForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages 
 
