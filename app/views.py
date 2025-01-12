@@ -58,55 +58,31 @@ def add_mark(request):
 
 def select_product(request):
     produtos_list = Produto.objects.all()
+    form = SearchForm(request.GET)
 
-    for p in produtos_list:
-        Warning("nome",p.nome)
-
-    form_name = SearchNameForm(request.GET)
-    form_mark = SearchMarkForm(request.GET)
-    form_price = SearchPriceForm(request.GET)
-
-    query = Q()
-
-    if form_name.is_valid() and form_name.cleaned_data.get('search_term'):
-        search_term = form_name.cleaned_data.get('search_term')
-        query &= Q(nome__nome__icontains=search_term)  # Uso correto de nome__nome
-
-    if form_mark.is_valid() and form_mark.cleaned_data.get('search_term'):
-        search_term = form_mark.cleaned_data.get('search_term')
-        query &= Q(marca__marca__icontains=search_term)  # Uso correto de marca__marca
-
-    if form_price.is_valid() and form_price.cleaned_data.get('search_term'):
-        search_term = form_price.cleaned_data.get('search_term')
-        """try:
-           search_term = float(search_term)
-           query &= Q(preco=search_term)  # Use preco aqui
-        except ValueError:
-           pass # Se não for um número, ignora o filtro de preço"""
-
-
-    if query:
-        produtos_list = produtos_list.filter(query) # Aplica o filtro combinado
-
+    if form.is_valid():
+        search_term = form.cleaned_data.get('search_term')
+        if search_term:
+            produtos_list = produtos_list.filter(Q(nome__nome__icontains=search_term))
 
     # Configuração da paginação
-    paginator = Paginator(produtos_list, 3)
+    paginator = Paginator(produtos_list, 3) # 5 produtos por página
     page = request.GET.get('page')
 
     try:
         produtos = paginator.page(page)
     except PageNotAnInteger:
+        # Se page não é um inteiro, exibe a primeira página
         produtos = paginator.page(1)
     except EmptyPage:
+            # Se a página estiver fora do range, exibe a última página
         produtos = paginator.page(paginator.num_pages)
 
     context = {
         "produto": produtos,
-        "form_name": form_name,
-        "form_mark": form_mark,
-        "form_price": form_price,
+        "form_name": form,
     }
-
+    
     return render(request, 'select_product.html', context)
 
 def update_product(request, id):
