@@ -40,6 +40,12 @@ class NomeProduto(forms.ModelForm):
             'nome':forms.TextInput(attrs={'type': 'text'}),
         }
 
-class SearchForm(forms.Form):
-    search_term = forms.CharField(required=False, label="Pesquisar")
+class SearchNameForm(forms.Form):
+    search_term = forms.CharField(required=False, label="Pesquisar por nome")
+
+class SearchMarkForm(forms.Form):
+    search_term = forms.CharField(required=False, label="Pesquisar por marca")
+
+class SearchPriceForm(forms.Form):
+    search_term = forms.CharField(required=False, label="Pesquisar por preco")
 

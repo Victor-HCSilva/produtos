@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<a href="{% url 'add_mark' %}" class="btn btn-primary mt-2">Voltar</a>
+<a href="{% url 'index' %}" class="btn btn-primary mt-2">Inicio</a>
+<br>
+<br>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <strong class="text-danger">{% if message.tags %} {% endif %}{{ message }}</strong>
+            
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<h1>Excluir Marca</h1>
+
+<p >Tem certeza que deseja excluir a marca <strong>"{{ mark.marca }}"</strong>?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+    <a class="btn btn-secondary" href="{% url 'add_mark' %}">Cancelar</a>
+</form>
+{% endblock %}

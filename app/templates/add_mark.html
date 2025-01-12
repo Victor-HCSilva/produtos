@@ -11,5 +11,22 @@
         {{ form_marca.as_p }}
         <button type="submit" class="btn btn-primary">Adicione</button>
     </form>
+
+    <br>
+    <h1>Marcas cadastradas</h1>
+    <br>
+    {% if marcas %}
+        {% for marca in marcas %}
+            {% if marca.marca %}
+            <a href="{% url 'delete_mark' id=marca.id %}" class="btn btn-sm btn-danger me-5">Deletar esta marca</a>
+            <a href="{% url 'update_mark' id=marca.id %}" class="btn btn-sm btn-warning me-5">Alterar nome</a>
+                <p><strong>Nome: </strong>{{ marca.marca }}</p>
+                <p><strong>ID:</strong> {{ marca.id }}</p>
+                
+                
+            {% endif %}
+            
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}

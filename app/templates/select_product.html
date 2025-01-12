@@ -7,7 +7,9 @@
 
     <form method="get" class="mb-3">
         {{ form_name.as_p }}
-        <button type="submit" class="btn btn-primary">Pesquisar pelo nome</button>
+        {{ form_mark.as_p }}
+        {{ form_price.as_p }}
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
     </form>
 
     {% if produto %}
@@ -23,6 +25,7 @@
                 <br>
                 <p><strong>ID: </strong>{{ item.id }}</p>
                 <p><strong>Nome: </strong>{{ item.nome }}</p>
+                <p><strong>Marca: </strong>{{ item.marca }}</p>
                 <p><strong>Preco (R$): </strong>{{ item.preco }}</p>
                 <p><strong>Quantidade: </strong>{{ item.quantidade }}</p>
                 {% if item.validade %}
